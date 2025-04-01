@@ -1,0 +1,10 @@
+.company-text {
+    width: 50%;
+    align-items: center;
+    padding-left: 100px;
+    padding-top: 150px;
+}
+
+.description {
+    font-size: 15px;
+}
