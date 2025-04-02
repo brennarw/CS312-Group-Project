@@ -8,10 +8,10 @@
 
 main {
     padding-top: 25px;
-    background-color: #E4F4DE; /*Color contrast with h1: https://webaim.org/resources/contrastchecker/?fcolor=E4F4DE&bcolor=800080*/
+    background-color: #1f1f1f; /*Color contrast with h1: https://webaim.org/resources/contrastchecker/?fcolor=1F1F1F&bcolor=D2ADF4*/
 }
   
 h1 {
     text-align: center;
-    color: #800080;
+    color: #d2adf4;
 }
