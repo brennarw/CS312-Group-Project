@@ -2,7 +2,7 @@
 header {
     background: white;
     padding: 0;
-    background-color: lavender;
+    background-color: lavender; /*Contrast against purple: https://webaim.org/resources/contrastchecker/?fcolor=800080&bcolor=E6E6FA*/
 }
 
 a {
@@ -10,7 +10,7 @@ a {
 }
 
 a:hover {
-    background-color: darkblue;
+    background-color: darkblue; /*Contrast against white: https://webaim.org/resources/contrastchecker/?fcolor=00008B&bcolor=FFFFFF*/
     color: white;
 }
 
