@@ -1,12 +1,15 @@
-<mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{name}}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="{{picturePath}}" alt="{{name}}">
-    <mat-card-content>
-      <p>
-        {{description}}
-      </p>
-    </mat-card-content>
+<mat-card class="profile-card" appearance="outlined">
+  <div class="card-content">
+    <img class="profile-image" src="{{picturePath}}" alt="{{name}}">
+    <div class="profile-info">
+      <mat-card-header>
+        <mat-card-title>{{name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{description}}</p>
+      </mat-card-content>
+    </div>
+  </div>
 </mat-card>
+
   
