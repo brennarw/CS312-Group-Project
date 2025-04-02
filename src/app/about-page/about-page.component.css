@@ -7,6 +7,7 @@
 }
 
 main {
+    padding-top: 25px;
     background-color: #E4F4DE; /*Color contrast with h1: https://webaim.org/resources/contrastchecker/?fcolor=E4F4DE&bcolor=800080*/
 }
   
