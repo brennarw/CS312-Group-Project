@@ -1,0 +1,16 @@
+.profile-card-grid {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 20px; 
+    padding: 20px 0; 
+}
+
+main {
+    background-color: #E4F4DE; /*Color contrast with h1: https://webaim.org/resources/contrastchecker/?fcolor=E4F4DE&bcolor=800080*/
+}
+  
+h1 {
+    text-align: center;
+    color: #800080;
+}
