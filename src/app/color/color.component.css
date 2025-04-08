@@ -17,4 +17,17 @@ td:last-child {
     width: 80%;
 }
 
+.form_style {
+    padding-top: 10px;
+    text-align: center;
+}
+
+form label {
+    padding-left: 25px;
+}
+
+.error {
+    color:red;
+}
+
   

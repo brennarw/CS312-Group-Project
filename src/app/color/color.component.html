@@ -1,75 +1,67 @@
-<main>
- <table id="colorTable"></table>
-    <script>
-        const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-        const previousSelections = new Map(); 
+<form (ngSubmit)="formSubmit()" #form="ngForm" class="form_style">
+    <label for="rows">Number of Rows</label><input 
+        type="number"
+        id="rows"
+        name="rows"
+        class="form-control"
+        [max]="1000"
+        [min]="1"
+        required 
+        [(ngModel)]="numRows"
+        #rows="ngModel">
+    
+        <div *ngIf="rows.invalid && (rows.touched)">
+              <div *ngIf="rows.hasError('max') || rows.hasError('min')" class="error">
+                  Rows must be at least 1 or at most 1000.
+            </div>
+            <div *ngIf="rows.hasError('required')" class="error">
+                Rows field is required.
+          </div>
+        </div>
+    <label for="cols">Number of Columns</label><input 
+        type="number" 
+        id="cols" 
+        name="cols" 
+        class="form-control" 
+        [max]="702"
+        [min]="1"
+        required 
+        #cols="ngModel"
+        [(ngModel)]="numCols">
 
-        function createTable() {
-            const table = document.getElementById('colorTable');
-            table.innerHTML = '';
-            const usedColors = new Set();
+        <div *ngIf="cols.invalid && (cols.touched)">
+            <div *ngIf="cols.hasError('max') || cols.hasError('min')" class="error">
+                Columns must be at least 1 or at most 702.
+          </div>
+          <div *ngIf="cols.hasError('required')" class="error">
+              Columns field is required.
+        </div>
+      </div>
 
-        for (let i = 0; i < colors.length; i++) {
-            const row = document.createElement('tr');
-            const leftColumn = document.createElement('td');
-            leftColumn.style.width = '20%';
+    <label for="colors">Number of Colors</label><input 
+    type="number" 
+    id="colors" 
+    name="colors" 
+    class="form-control" 
+    [max]="10"
+    [min]="1"
+    required 
+    #colors="ngModel"
+    [(ngModel)]="numColors">
 
-            const radioButton = document.createElement('input');
-            radioButton.type = 'radio';
-            radioButton.name = 'selectedColor';
-            radioButton.onclick = () => unselectOtherRadioButtons(radioButton);
-            leftColumn.appendChild(radioButton);
+    <div *ngIf="colors.invalid && (colors.touched)">
+        <div *ngIf="colors.hasError('max') || colors.hasError('min')" class="error">
+            Colors must be at least 1 or at most 10.
+      </div>
+      <div *ngIf="colors.hasError('required')" class="error">
+          Colors field is required.
+    </div>
+  </div>
 
-        const colorDropdown = document.createElement('select');
-        colorDropdown.name = `color-${i}`;
-        colorDropdown.dataset.rowIndex = i;
-        colors.forEach(color => {
-            const option = document.createElement('option');
-            option.value = color;
-            option.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-            colorDropdown.appendChild(option);
-        });
-        const defaultColor = colors[i];
-        colorDropdown.value = defaultColor;
-        usedColors.add(defaultColor);
-        previousSelections.set(colorDropdown, defaultColor);
-        colorDropdown.addEventListener('change', () => handleColorSelection(colorDropdown));
+  <br>
 
-        leftColumn.appendChild(colorDropdown);
-        row.appendChild(leftColumn);
-        const rightColumn = document.createElement('td');
-        rightColumn.style.width = '80%';
-        row.appendChild(rightColumn);
+    <input type="submit" [disabled]="form.invalid" class="submit">
+</form>
 
-        table.appendChild(row);
-    }
-}
-
-function unselectOtherRadioButtons(currentRadioButton) {
-    const radios = document.querySelectorAll('input[type="radio"]');
-    radios.forEach(radio => {
-        if (radio !== currentRadioButton) {
-            radio.checked = false;
-        }
-    });
-}
-
-function handleColorSelection(changedDropdown) {
-    const selectedColor = changedDropdown.value;
-    const allDropdowns = document.querySelectorAll('select');
-    for (const dropdown of allDropdowns) {
-        if (dropdown !== changedDropdown && dropdown.value === selectedColor) {
-            const previous = previousSelections.get(changedDropdown);
-            changedDropdown.value = previous;
-            alert(`Color "${selectedColor}" is already selected. Please choose a different color.`);
-            return;
-        }
-    }
-
-    previousSelections.set(changedDropdown, selectedColor);
-}
-    createTable();
-
-    </script>
-</main>
+<table id="colorTable"></table>
 
