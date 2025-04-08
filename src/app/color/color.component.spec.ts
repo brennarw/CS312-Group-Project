@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ColorComponent } from './color.component';
 
 describe('ColorComponent', () => {
