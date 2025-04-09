@@ -6,7 +6,7 @@
     padding-bottom: 10px;
     max-width: 1200px;
     min-width: 1200px;
-    background-color: #e6e6fa; /*Color contrast against black text: https://webaim.org/resources/contrastchecker/?fcolor=E6E6FA&bcolor=111111*/
+    background-color: #a9c2e8; /*Color contrast against black text: https://webaim.org/resources/contrastchecker/?fcolor=A9C2E8&bcolor=111111*/
 }
 
 .card-content {
