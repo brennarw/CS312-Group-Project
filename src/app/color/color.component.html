@@ -73,7 +73,9 @@
     <table id="colorTable" >
     </table>
 </div>
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
+<div class="paint-table-container">
+    <paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
+</div>
 <div class="no-print">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
 </div>

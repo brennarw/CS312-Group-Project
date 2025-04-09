@@ -107,5 +107,9 @@ form input {
     }
   }
   
-
-  
+.paint-table-container {
+    width: 82%;
+    overflow-x: scroll;
+    background-color: #a9c2e8;
+    padding: 10px;
+}
