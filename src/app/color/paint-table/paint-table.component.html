@@ -1,1 +1,16 @@
 <p>Paint table goes here!</p>
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th *ngFor="let col of columns">{{col}}</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of rows" >
+            <th>{{row}}</th>
+        </tr>
+    </tbody>
+</table>
