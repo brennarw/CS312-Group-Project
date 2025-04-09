@@ -1,5 +1,8 @@
-<form (ngSubmit)="formSubmit()" #form="ngForm" class="form_style">
-    <label for="rows">Number of Rows</label><input 
+<main>
+<h1>Color Coordinate</h1>
+<form (ngSubmit)="formSubmit()" #form="ngForm">
+    <div class="form">
+    <label for="rows">Number of Rows:</label><input 
         type="number"
         id="rows"
         name="rows"
@@ -10,15 +13,7 @@
         [(ngModel)]="numRows"
         #rows="ngModel">
     
-        <div *ngIf="rows.invalid && (rows.touched)">
-              <div *ngIf="rows.hasError('max') || rows.hasError('min')" class="error">
-                  Rows must be at least 1 or at most 1000.
-            </div>
-            <div *ngIf="rows.hasError('required')" class="error">
-                Rows field is required.
-          </div>
-        </div>
-    <label for="cols">Number of Columns</label><input 
+    <label for="cols">Number of Columns:</label><input 
         type="number" 
         id="cols" 
         name="cols" 
@@ -29,16 +24,7 @@
         #cols="ngModel"
         [(ngModel)]="numCols">
 
-        <div *ngIf="cols.invalid && (cols.touched)">
-            <div *ngIf="cols.hasError('max') || cols.hasError('min')" class="error">
-                Columns must be at least 1 or at most 702.
-          </div>
-          <div *ngIf="cols.hasError('required')" class="error">
-              Columns field is required.
-        </div>
-      </div>
-
-    <label for="colors">Number of Colors</label><input 
+    <label for="colors">Number of Colors:</label><input 
     type="number" 
     id="colors" 
     name="colors" 
@@ -49,19 +35,40 @@
     #colors="ngModel"
     [(ngModel)]="numColors">
 
-    <div *ngIf="colors.invalid && (colors.touched)">
-        <div *ngIf="colors.hasError('max') || colors.hasError('min')" class="error">
-            Colors must be at least 1 or at most 10.
+    <div class="submit"><input type="submit" [disabled]="form.invalid" class="button"></div>
+
+    </div>
+
+    <div *ngIf="rows.invalid && (rows.touched)">
+        <div *ngIf="rows.hasError('max') || rows.hasError('min')" class="error">
+            *Rows must be at least 1 or at most 1000.
       </div>
-      <div *ngIf="colors.hasError('required')" class="error">
-          Colors field is required.
+      <div *ngIf="rows.hasError('required')" class="error">
+          *Rows field is required.
     </div>
   </div>
 
-  <br>
+    <div *ngIf="cols.invalid && (cols.touched)">
+        <div *ngIf="cols.hasError('max') || cols.hasError('min')" class="error">
+            *Columns must be at least 1 or at most 702.
+      </div>
+      <div *ngIf="cols.hasError('required')" class="error">
+          *Columns field is required.
+    </div>
+  </div>
 
-    <input type="submit" [disabled]="form.invalid" class="submit">
+    <div *ngIf="colors.invalid && (colors.touched)">
+        <div *ngIf="colors.hasError('max') || colors.hasError('min')" class="error">
+            *Colors must be at least 1 or at most 10.
+      </div>
+      <div *ngIf="colors.hasError('required')" class="error">
+          *Colors field is required.
+    </div>
+  </div>
+
 </form>
 
-<table id="colorTable"></table>
+<div class="table-top"><table id="colorTable"></table></div>
+
+</main>
 
