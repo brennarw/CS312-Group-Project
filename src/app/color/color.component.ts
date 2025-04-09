@@ -18,13 +18,23 @@ export class ColorComponent {
   rowsArray!: number[];
   columnLabels!: string[];
 
+  usedColors = new Set<string>();
+  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
+  previousSelections = new Map<HTMLSelectElement, string>();
+
   formSubmit() {
     console.log(this.numRows);
     console.log(this.numCols);
     console.log(this.numColors);
     this.rowsArray = Array(this.numRows).fill(0);
     this.columnLabels = this.generateColumnLabels(this.numCols);
-    this.createTable();
+    this.createTable(false);
+  }
+
+  printPage(): void {
+    this.createTable(true);
+    window.print();
+    this.createTable(false);
   }
 
   generateColumnLabels(count: number): string[] {
@@ -44,14 +54,31 @@ export class ColorComponent {
     alert(`${col}${row}`);
   }
 
-  //////////////////////////////////////////////////////////////////
-  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-  previousSelections = new Map<HTMLSelectElement, string>();
+  /////////////////////////////////////////////////////////////////
 
-  createTable(): void {
+  createTable(print: boolean): void {
+    if(print) {
+      const colorBoxContainer = document.getElementById('colorTable')!;
+      colorBoxContainer.innerHTML = ''; 
+
+      this.usedColors.forEach(color => {
+        const colorBox = document.createElement('div');
+        colorBox.textContent = color;
+        colorBox.style.padding = '5px';
+        colorBox.style.marginBottom = '5px';
+        colorBox.style.width = '50px';
+        colorBox.style.textAlign = 'center';
+        colorBox.style.fontSize = '10px';
+        colorBox.style.boxShadow = '0 0 5px rgba(0,0,0,0.2)';
+        colorBoxContainer.appendChild(colorBox);
+      });
+      
+      return;
+    }
+    this.previousSelections.clear();
+    this.usedColors.clear();
     const table = document.getElementById('colorTable')!;
     table.innerHTML = '';
-    const usedColors = new Set<string>();
 
     for (let i = 0; i < this.numColors; i++) {
       const row = document.createElement('tr');
@@ -61,7 +88,6 @@ export class ColorComponent {
 
       const radioButton = document.createElement('input');
       radioButton.type = 'radio';
-      radioButton.classList.add('no-print');
       radioButton.name = 'selectedColor';
       radioButton.style.width = '25px';
       radioButton.style.scale = '1.25';
@@ -70,7 +96,6 @@ export class ColorComponent {
       leftColumn.appendChild(radioButton);
 
       const colorDropdown = document.createElement('select');
-      colorDropdown.classList.add('no-print');
       colorDropdown.name = `color-${i}`;
       colorDropdown.dataset['rowIndex'] = i.toString();
       this.colors.forEach(color => {
@@ -82,7 +107,7 @@ export class ColorComponent {
 
       const defaultColor = this.colors[i];
       colorDropdown.value = defaultColor;
-      usedColors.add(defaultColor);
+      this.usedColors.add(defaultColor);
       this.previousSelections.set(colorDropdown, defaultColor);
       colorDropdown.addEventListener('change', () => this.handleColorSelection(colorDropdown));
       colorDropdown.style.borderColor='#422d4d';
@@ -124,28 +149,14 @@ export class ColorComponent {
     }
 
     this.previousSelections.set(changedDropdown, selectedColor);
+    this.usedColors.clear();
+    for (const [key, value] of this.previousSelections) {
+      this.usedColors.add(value);
+    }
+    // this.usedColors.set(selectedColor);
+    console.log(this.previousSelections);
+    console.log(this.usedColors);
   }
-
-  //////////////////////////////////////////////
-  // constructor(private captureService:NgxCaptureService) {
-  //   //
-  //   }
-  // @ViewChild('screen', { static: true }) screen: any;
-  
-  // capture() {
-  //     this.captureService.getImage(this.screen.nativeElement, true).subscribe((img) => {
-  //       // console.log(img);
-  //       const newWindow = window.open();
-  //       if (newWindow) {
-  //         newWindow.document.write(`<img src="${img}" style="max-width: 100%; max-height: 100%;" />`);
-  //         newWindow.document.title = "Captured Image";
-  //       } else {
-  //         console.error('Popup blocked or failed to open');
-  //       }
-  //     });
-      
-  // }
-
 
     
 }

@@ -20,7 +20,7 @@ table {
 
 main {
     padding-top: 25px;
-    padding-bottom: 410px;
+    padding-bottom: 500px;
     background-color: #1f1f1f;
 }
 
@@ -68,6 +68,19 @@ form input {
     border-style: none;
     background-color: #422d4d;
     color: lavender;
+    font-size: 15px;
+    scale: 1.1;
+}
+
+.print-button {
+    position:absolute;
+    bottom: 20px;    
+    right: 20px;
+    padding: 10px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: lavender;
+    color: #422d4d;
     font-size: 15px;
     scale: 1.1;
 }

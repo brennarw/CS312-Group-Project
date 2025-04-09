@@ -50,7 +50,7 @@ a {
 
 @media print {
     /* Apply grayscale filter to the entire body */
-    main {
+    img {
       filter: grayscale(100%);
     }
 
