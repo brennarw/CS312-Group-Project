@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { PaintTableComponent } from './paint-table/paint-table.component';
 @Component({
   selector: 'app-color',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule], 
+  imports: [CommonModule, RouterModule, FormsModule, PaintTableComponent], 
   templateUrl: './color.component.html',
   styleUrl: './color.component.css'
 })
@@ -17,6 +17,8 @@ export class ColorComponent {
   rowsArray!: number[];
   columnLabels!: string[];
 
+  showPaintTable = false;
+
   formSubmit() {
     console.log(this.numRows);
     console.log(this.numCols);
@@ -24,6 +26,7 @@ export class ColorComponent {
     this.rowsArray = Array(this.numRows).fill(0);
     this.columnLabels = this.generateColumnLabels(this.numCols);
     this.createTable();
+    this.renderPaintTable();
   }
 
   generateColumnLabels(count: number): string[] {
@@ -115,5 +118,9 @@ export class ColorComponent {
     this.previousSelections.set(changedDropdown, selectedColor);
   }
 
-  
+  renderPaintTable(): void {
+    this.showPaintTable = true;
+  }
+
+
 }
