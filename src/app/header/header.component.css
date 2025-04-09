@@ -9,7 +9,7 @@ a {
 }
 
 .button:hover {
-    background-color: #e6e6fa; /*Contrast against text color: https://webaim.org/resources/contrastchecker/?fcolor=1F1F1F&bcolor=E6E6FA*/
+    background-color: #a9c2e8; /*Contrast against text color: https://webaim.org/resources/contrastchecker/?fcolor=A9C2E8&bcolor=1F1F1F*/
     color: #1f1f1f;
 }
 
@@ -47,3 +47,14 @@ a {
     padding: 15px 25px;
     background-color: #422d4d; /*Contrast against white text: https://webaim.org/resources/contrastchecker/?fcolor=422D4D&bcolor=FFFFFF*/
 }
+
+@media print {
+    /* Apply grayscale filter to the entire body */
+    img {
+      filter: grayscale(100%);
+    }
+
+    .no-print {
+        display: none !important; 
+    }
+  }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -8,14 +8,19 @@ import { PaintTableComponent } from './paint-table/paint-table.component';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, PaintTableComponent], 
   templateUrl: './color.component.html',
-  styleUrl: './color.component.css'
+  styleUrl: './color.component.css',
 })
+
 export class ColorComponent {
   numRows!: number;
   numCols!: number; 
   numColors!: number;
   rowsArray!: number[];
   columnLabels!: string[];
+
+  usedColors = new Set<string>();
+  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
+  previousSelections = new Map<HTMLSelectElement, string>();
 
   showPaintTable = false;
 
@@ -25,8 +30,14 @@ export class ColorComponent {
     console.log(this.numColors);
     this.rowsArray = Array(this.numRows).fill(0);
     this.columnLabels = this.generateColumnLabels(this.numCols);
-    this.createTable();
+    this.createTable(false);
     this.renderPaintTable();
+  }
+
+  printPage(): void {
+    this.createTable(true);
+    window.print();
+    this.createTable(false);
   }
 
   generateColumnLabels(count: number): string[] {
@@ -46,14 +57,31 @@ export class ColorComponent {
     alert(`${col}${row}`);
   }
 
-  //////////////////////////////////////////////////////////////////
-  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-  previousSelections = new Map<HTMLSelectElement, string>();
+  /////////////////////////////////////////////////////////////////
 
-  createTable(): void {
+  createTable(print: boolean): void {
+    if(print) {
+      const colorBoxContainer = document.getElementById('colorTable')!;
+      colorBoxContainer.innerHTML = ''; 
+
+      this.usedColors.forEach(color => {
+        const colorBox = document.createElement('div');
+        colorBox.textContent = color;
+        colorBox.style.padding = '5px';
+        colorBox.style.marginBottom = '5px';
+        colorBox.style.width = '50px';
+        colorBox.style.textAlign = 'center';
+        colorBox.style.fontSize = '10px';
+        colorBox.style.boxShadow = '0 0 5px rgba(0,0,0,0.2)';
+        colorBoxContainer.appendChild(colorBox);
+      });
+      
+      return;
+    }
+    this.previousSelections.clear();
+    this.usedColors.clear();
     const table = document.getElementById('colorTable')!;
     table.innerHTML = '';
-    const usedColors = new Set<string>();
 
     for (let i = 0; i < this.numColors; i++) {
       const row = document.createElement('tr');
@@ -64,6 +92,9 @@ export class ColorComponent {
       const radioButton = document.createElement('input');
       radioButton.type = 'radio';
       radioButton.name = 'selectedColor';
+      radioButton.style.width = '25px';
+      radioButton.style.scale = '1.25';
+      radioButton.style.borderColor = '#d2adf4';
       radioButton.onclick = () => this.unselectOtherRadioButtons(radioButton);
       leftColumn.appendChild(radioButton);
 
@@ -79,9 +110,13 @@ export class ColorComponent {
 
       const defaultColor = this.colors[i];
       colorDropdown.value = defaultColor;
-      usedColors.add(defaultColor);
+      this.usedColors.add(defaultColor);
       this.previousSelections.set(colorDropdown, defaultColor);
       colorDropdown.addEventListener('change', () => this.handleColorSelection(colorDropdown));
+      colorDropdown.style.borderColor='#422d4d';
+      colorDropdown.style.borderRadius='10px';
+      colorDropdown.style.borderWidth='2px';
+      colorDropdown.style.padding='5px';
 
       leftColumn.appendChild(colorDropdown);
       row.appendChild(leftColumn);
@@ -91,6 +126,7 @@ export class ColorComponent {
       row.appendChild(rightColumn);
 
       table.appendChild(row);
+      table.style.padding = '15px';
     }
   }
 
@@ -116,6 +152,13 @@ export class ColorComponent {
     }
 
     this.previousSelections.set(changedDropdown, selectedColor);
+    this.usedColors.clear();
+    for (const [key, value] of this.previousSelections) {
+      this.usedColors.add(value);
+    }
+    // this.usedColors.set(selectedColor);
+    console.log(this.previousSelections);
+    console.log(this.usedColors);
   }
 
   renderPaintTable(): void {
