@@ -61,6 +61,9 @@ export class ColorComponent {
       const radioButton = document.createElement('input');
       radioButton.type = 'radio';
       radioButton.name = 'selectedColor';
+      radioButton.style.width = '25px';
+      radioButton.style.scale = '1.25';
+      radioButton.style.borderColor = '#d2adf4';
       radioButton.onclick = () => this.unselectOtherRadioButtons(radioButton);
       leftColumn.appendChild(radioButton);
 
@@ -79,6 +82,10 @@ export class ColorComponent {
       usedColors.add(defaultColor);
       this.previousSelections.set(colorDropdown, defaultColor);
       colorDropdown.addEventListener('change', () => this.handleColorSelection(colorDropdown));
+      colorDropdown.style.borderColor='#422d4d';
+      colorDropdown.style.borderRadius='10px';
+      colorDropdown.style.borderWidth='2px';
+      colorDropdown.style.padding='5px';
 
       leftColumn.appendChild(colorDropdown);
       row.appendChild(leftColumn);
@@ -88,6 +95,7 @@ export class ColorComponent {
       row.appendChild(rightColumn);
 
       table.appendChild(row);
+      table.style.padding = '15px';
     }
   }
 

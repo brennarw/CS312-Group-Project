@@ -1,7 +1,27 @@
+* {
+    margin: auto;
+}
+
+h1 {
+    color: #d2adf4;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
 table {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
+    width: 82%;
+    background-color: lavender;
+    border-radius: 15px;
+}
+
+.table-top {
+    padding-top: 25px;
+}
+
+main {
+    padding-top: 25px;
+    padding-bottom: 410px;
+    background-color: #1f1f1f;
 }
 
 th, td {
@@ -17,17 +37,47 @@ td:last-child {
     width: 80%;
 }
 
-.form_style {
-    padding-top: 10px;
+form {
+    width: 80%;
     text-align: center;
+    background-color: lavender;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.form {
+    display: flex;
 }
 
 form label {
-    padding-left: 25px;
+    padding-left: 10px;
+}
+
+form input {
+    width: 65px;
+    border-radius: 15px;
+    border-color: #422d4d;
+    /* background-color: #422d4d;
+    color: lavender; */
+    padding: 10px;
+}
+
+.button {
+    padding: 10px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: #422d4d;
+    color: lavender;
+    font-size: 15px;
+    scale: 1.1;
 }
 
 .error {
     color:red;
+    font-size: 12px;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
 }
 
   
