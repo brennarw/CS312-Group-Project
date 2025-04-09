@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -8,8 +8,9 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule], 
   templateUrl: './color.component.html',
-  styleUrl: './color.component.css'
+  styleUrl: './color.component.css',
 })
+
 export class ColorComponent {
   numRows!: number;
   numCols!: number; 
@@ -60,6 +61,7 @@ export class ColorComponent {
 
       const radioButton = document.createElement('input');
       radioButton.type = 'radio';
+      radioButton.classList.add('no-print');
       radioButton.name = 'selectedColor';
       radioButton.style.width = '25px';
       radioButton.style.scale = '1.25';
@@ -68,6 +70,7 @@ export class ColorComponent {
       leftColumn.appendChild(radioButton);
 
       const colorDropdown = document.createElement('select');
+      colorDropdown.classList.add('no-print');
       colorDropdown.name = `color-${i}`;
       colorDropdown.dataset['rowIndex'] = i.toString();
       this.colors.forEach(color => {
@@ -123,5 +126,26 @@ export class ColorComponent {
     this.previousSelections.set(changedDropdown, selectedColor);
   }
 
+  //////////////////////////////////////////////
+  // constructor(private captureService:NgxCaptureService) {
+  //   //
+  //   }
+  // @ViewChild('screen', { static: true }) screen: any;
   
+  // capture() {
+  //     this.captureService.getImage(this.screen.nativeElement, true).subscribe((img) => {
+  //       // console.log(img);
+  //       const newWindow = window.open();
+  //       if (newWindow) {
+  //         newWindow.document.write(`<img src="${img}" style="max-width: 100%; max-height: 100%;" />`);
+  //         newWindow.document.title = "Captured Image";
+  //       } else {
+  //         console.error('Popup blocked or failed to open');
+  //       }
+  //     });
+      
+  // }
+
+
+    
 }

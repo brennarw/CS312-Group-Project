@@ -1,6 +1,6 @@
 <main>
-<h1>Color Coordinate</h1>
-<form (ngSubmit)="formSubmit()" #form="ngForm">
+<h1 class="no-print">Color Coordinate</h1>
+<form (ngSubmit)="formSubmit()" #form="ngForm" class="no-print">
     <div class="form">
     <label for="rows">Number of Rows:</label><input 
         type="number"
@@ -68,7 +68,13 @@
 
 </form>
 
-<div class="table-top"><table id="colorTable"></table></div>
+
+<div class="table-top">
+    <table id="colorTable">
+    </table>
+</div>
+
+<button class='no-print' onclick="window.print()">Print this page</button>
 
 </main>
 

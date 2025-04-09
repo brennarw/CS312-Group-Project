@@ -80,4 +80,16 @@ form input {
     padding-top: 10px;
 }
 
+@media print {
+    /* Apply grayscale filter to the entire body */
+    main {
+      filter: grayscale(100%);
+    }
+
+    .no-print {
+        display: none !important; 
+    }
+  }
+  
+
   

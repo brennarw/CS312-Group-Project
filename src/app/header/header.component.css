@@ -47,3 +47,14 @@ a {
     padding: 15px 25px;
     background-color: #422d4d; /*Contrast against white text: https://webaim.org/resources/contrastchecker/?fcolor=422D4D&bcolor=FFFFFF*/
 }
+
+@media print {
+    /* Apply grayscale filter to the entire body */
+    main {
+      filter: grayscale(100%);
+    }
+
+    .no-print {
+        display: none !important; 
+    }
+  }
