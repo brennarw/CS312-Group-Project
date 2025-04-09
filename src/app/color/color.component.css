@@ -20,7 +20,7 @@ table {
 
 main {
     padding-top: 25px;
-    padding-bottom: 410px;
+    padding-bottom: 500px;
     background-color: #1f1f1f;
 }
 
@@ -72,6 +72,19 @@ form input {
     scale: 1.1;
 }
 
+.print-button {
+    position:absolute;
+    bottom: 20px;    
+    right: 20px;
+    padding: 10px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: lavender;
+    color: #422d4d;
+    font-size: 15px;
+    scale: 1.1;
+}
+
 .error {
     color: white; /*Color contrast against #AF1818 text: https://webaim.org/resources/contrastchecker/?fcolor=AF1818&bcolor=FFFFFF*/
     background-color: #AF1818;
@@ -82,5 +95,17 @@ form input {
     display: block;
     padding: 10px;
 }
+
+@media print {
+    /* Apply grayscale filter to the entire body */
+    main {
+      filter: grayscale(100%);
+    }
+
+    .no-print {
+        display: none !important; 
+    }
+  }
+  
 
   
