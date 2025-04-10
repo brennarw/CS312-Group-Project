@@ -20,8 +20,9 @@ table {
 
 main {
     padding-top: 25px;
-    padding-bottom: 500px;
     background-color: #1f1f1f;
+    height: 100vh;
+    position: relative;
 }
 
 th, td {
@@ -70,10 +71,11 @@ form input {
     color: lavender;
     font-size: 15px;
     scale: 1.1;
+    cursor: pointer;
 }
 
 .print-button {
-    position:absolute;
+    position:fixed;
     bottom: 20px;    
     right: 20px;
     padding: 10px;
@@ -83,6 +85,7 @@ form input {
     color: #422d4d;
     font-size: 15px;
     scale: 1.1;
+    cursor: pointer;
 }
 
 .error {
@@ -100,6 +103,7 @@ form input {
     /* Apply grayscale filter to the entire body */
     main {
       filter: grayscale(100%);
+      height: 100%;
     }
 
     .no-print {
@@ -107,9 +111,3 @@ form input {
     }
   }
   
-.paint-table-container {
-    width: 82%;
-    overflow-x: scroll;
-    background-color: #a9c2e8;
-    padding: 10px;
-}

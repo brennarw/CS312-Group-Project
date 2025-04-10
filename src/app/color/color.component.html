@@ -65,7 +65,6 @@
           *Colors field is required.
     </div>
   </div>
-
 </form>
 
 
@@ -73,9 +72,7 @@
     <table id="colorTable" >
     </table>
 </div>
-<div class="paint-table-container">
-    <paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
-</div>
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
 <div class="no-print">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
 </div>
