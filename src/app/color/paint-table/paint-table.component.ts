@@ -33,5 +33,9 @@ export class PaintTableComponent {
         return Array.from({ length: this.numRows }, (_, i) => i + 1);
     }
 
+    onCellClick(row: number, col: string) {
+        console.log(`${col}${row}`);
+    }
+
       
 }

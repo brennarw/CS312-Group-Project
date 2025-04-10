@@ -1,3 +1,4 @@
+<div class="paint-table-container">
 <table>
     <thead>
         <tr>
@@ -9,7 +10,8 @@
     <tbody>
         <tr *ngFor="let row of rows" >
             <th>{{row}}</th>
-            <td *ngFor="let col of columns"></td>
+            <td *ngFor="let col of columns" (click)="onCellClick(row, col)"></td>
         </tr>
     </tbody>
 </table>
+</div>
