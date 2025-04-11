@@ -1,17 +1,19 @@
-<div class="paint-table-container">
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th *ngFor="let col of columns">{{col}}</th>
-        </tr>
-
-    </thead>
-    <tbody>
-        <tr *ngFor="let row of rows" >
-            <th>{{row}}</th>
-            <td *ngFor="let col of columns" (click)="onCellClick(row, col)"></td>
-        </tr>
-    </tbody>
-</table>
-</div>
+<section>
+    <div class="paint-table-container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th *ngFor="let col of columns">{{col}}</th>
+            </tr>
+    
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of rows" >
+                <th>{{row}}</th>
+                <td *ngFor="let col of columns" (click)="onCellClick(row, col)"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</section>
