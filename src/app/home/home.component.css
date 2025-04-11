@@ -23,7 +23,8 @@
 .home {
     display: flex;
     background-color: rgb(31, 31, 31);
-    padding-bottom: 75px;
+    height: 100%;   
+    padding-bottom: 150px;
     padding-top: 40px;
     position: relative;
 }
