@@ -1,2 +1,3 @@
 # CS312-Group-Project
-A Coloring Page!
+
+This project involves building a multi-page website for a fictitious company, including a name, logo, navigation bar, an About page, and a Color Coordinate Generation page. The About page must feature each team member’s name, brief bio, and a picture or avatar, with each member responsible for adding their own content. The site must be styled with at least three unique colors (excluding pure black or white) and follow accessibility guidelines with all text/background color combinations achieving a minimum contrast ratio of 7:1, as verified using the WebAIM contrast checker. The main functionality centers around a custom color coordinate generator designed to help individuals with colorblindness improve their ability to recognize and differentiate between colors.
