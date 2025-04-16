@@ -1,0 +1,13 @@
+main {
+    padding-top: 25px;
+    background-color: #1f1f1f;
+    height: 100vh;
+    position: relative;
+    color: white;
+}
+
+h1 {
+    color: #d2adf4; /*Color contrast against #1f1f1f text: https://webaim.org/resources/contrastchecker/?fcolor=D2ADF4&bcolor=1F1F1F*/
+    text-align: center;
+    padding-bottom: 20px;
+}

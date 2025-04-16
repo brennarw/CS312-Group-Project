@@ -113,6 +113,14 @@ form input {
     line-height: 20px;
 }
 
+mat-radio-button {
+    scale: 0.1;
+}
+
+mat-form-field {
+    scale: 0.7;
+}
+
 @media print {
     /* Apply grayscale filter to the entire body */
     main {

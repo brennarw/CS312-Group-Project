@@ -1,0 +1,10 @@
+<main>
+<h1>Color Selection</h1>
+<form #new_song (ngSubmit)="PostRequest()">
+    <label for="color">Add a Color: </label> <input type="text" id="color" name="color" class="form-control"
+    [(ngModel)]="color">
+    <label for="hex">Add the Hex Value: </label> <input type="text" id="hex" name="hex" class="form-control"
+    [(ngModel)]="hex">
+    <input type="submit" >
+</form>
+</main>

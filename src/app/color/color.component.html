@@ -73,8 +73,6 @@
         @for (color of usedColors; track color) {
             <tr>
               <td style="width: 20%; vertical-align: top;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  
                   <mat-radio-group [(ngModel)]="selectedColor">
                     <mat-radio-button 
                       class="example-radio-button" 
@@ -91,7 +89,6 @@
                       }
                     </mat-select>
                   </mat-form-field>
-                </div>
               </td>
               <td style="width: 80%; vertical-align: top;">
                 <!-- track what cells coordinate with each color here -->
