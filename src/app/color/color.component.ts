@@ -66,6 +66,7 @@ export class ColorComponent {
   adjustColorOptions() {
     this.radioRows = [];
     this.selectedColor = '';
+    this.filledCells = {};
     this.radioRows = this.allColorOptions.slice(0, this.numColors).map(color => ({ color: color, coloredCells: [] }));
   }
 
