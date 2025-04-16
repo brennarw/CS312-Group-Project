@@ -11,7 +11,10 @@
         <tbody>
             <tr *ngFor="let row of rows" >
                 <th>{{row}}</th>
-                <td *ngFor="let col of columns" (click)="onCellClick(row, col)"></td>
+                <td *ngFor="let col of columns" 
+                    (click)="onCellClick(row, col)"
+                    [style.backgroundColor]="filledCells[`${row}-${col}`] || ''">
+                </td>
             </tr>
         </tbody>
     </table>

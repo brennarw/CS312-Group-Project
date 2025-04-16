@@ -27,9 +27,7 @@ export class ColorComponent {
   numColors!: number;
   rowsArray!: number[];
   columnLabels!: string[];
-  selectedColor!: string;
   showColorTable: boolean = false;
-  // restrictedColorOptions!: string[];
   allColorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
   colorSelection: Color[] = [
     {value: 'red', viewValue: 'Red'},
@@ -43,8 +41,11 @@ export class ColorComponent {
     {value: 'black', viewValue: 'Black'},
     {value: 'teal', viewValue: 'Teal'},
   ];
-  usedColors = new Set<string>();
-  selectedDropdownColors: string[] = []; 
+  // usedColors = new Set<string>();
+  filledCells: { [key: string]: string } = {};
+  radioRows: {color:string, coloredCells: string[]}[] = [];
+  selectedColor: string = '';
+  selectedRadioIndex: number = -1;
   print: boolean = false;
 
   colors: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
@@ -53,162 +54,40 @@ export class ColorComponent {
   showPaintTable = false;
 
   formSubmit() {
-    this.rowsArray = Array(this.numRows).fill(0);
-    // this.columnLabels = this.generateColumnLabels(this.numCols);
-    // this.createTable(false);
     this.adjustColorOptions();
     this.showColorTable = true;
     this.renderPaintTable();
   }
 
   printPage(): void {
-    // this.createTable(true);
     this.print = true;
     setTimeout(() => window.print(), 0);
     window.onafterprint = () => {
       this.print = false;
     };
-    // this.createTable(false);
   }
-
-  // generateColumnLabels(count: number): string[] {
-  //   const labels: string[] = [];
-  //   for (let i = 0; i < count; i++) {
-  //     let label = '';
-  //     let temp = i;
-  //     do {
-  //       label = String.fromCharCode((temp % 26) + 65) + label;
-  //       temp = Math.floor(temp / 26) - 1;
-  //     } while (temp >= 0);
-  //     labels.push(label);
-  //   }
-  //   return labels;
-  // }
-  // onCellClick(col: string, row: number) {
-  //   alert(`${col}${row}`);
-  // }
 
   adjustColorOptions() {
-    for(let i = 0; i < this.numColors; i++) {
-      this.usedColors.add(this.allColorOptions[i]);
-    }
+    this.radioRows = [];
+    this.selectedColor = '';
+    this.radioRows = this.allColorOptions.slice(0, this.numColors).map(color => ({ color: color, coloredCells: [] }));
   }
 
-  onDropdownChange(index: number): void {
-    const selected = this.selectedDropdownColors[index];
-    // Example: check for duplicates
-    const occurrences = this.selectedDropdownColors.filter(c => c === selected).length;
-    if (occurrences > 1) {
-      alert(`Color "${selected}" has already been selected!`);
-      this.selectedDropdownColors[index] = ''; // Clear the duplicate
+  isColorUsed(color: string): boolean {
+    return this.radioRows.some(row => row.color === color);
+  }
+
+  onDropdownChange(index: number, newColor: string): void {
+    if (!this.isColorUsed(newColor)) { //if the color switch is allowed
+      this.radioRows[index].color = newColor;
+      this.radioRows[index].coloredCells.forEach((cell) => {
+        this.filledCells[cell] = newColor;
+      })
+    } 
+    if (this.selectedRadioIndex === index) {
+      this.selectedColor = this.radioRows[index].color;
     }
   }
-  
-
-  /////////////////////////////////////////////////////////////////
-
-//   createTable(print: boolean): void {
-//     if(print) {
-//       const colorBoxContainer = document.getElementById('colorTable')!;
-//       colorBoxContainer.innerHTML = ''; 
-
-//       this.usedColors.forEach(color => {
-//         const colorBox = document.createElement('div');
-//         colorBox.textContent = color;
-//         colorBox.style.padding = '5px';
-//         colorBox.style.marginBottom = '5px';
-//         colorBox.style.width = '50px';
-//         colorBox.style.textAlign = 'center';
-//         colorBox.style.fontSize = '10px';
-//         colorBox.style.boxShadow = '0 0 5px rgba(0,0,0,0.2)';
-//         colorBoxContainer.appendChild(colorBox);
-//       });
-      
-//       return;
-//     }
-//     this.previousSelections.clear();
-//     this.usedColors.clear();
-//     const table = document.getElementById('colorTable')!;
-//     table.innerHTML = '';
-
-//     for (let i = 0; i < this.numColors; i++) {
-//       const row = document.createElement('tr');
-
-//       const leftColumn = document.createElement('td');
-//       leftColumn.style.width = '20%';
-
-//       const radioButton = document.createElement('input');
-//       radioButton.type = 'radio';
-//       radioButton.name = 'selectedColor';
-//       radioButton.style.width = '25px';
-//       radioButton.style.scale = '1.25';
-//       radioButton.style.borderColor = '#d2adf4';
-//       radioButton.onclick = () => this.unselectOtherRadioButtons(radioButton);
-//       leftColumn.appendChild(radioButton);
-
-//       const colorDropdown = document.createElement('select');
-//       colorDropdown.name = `color-${i}`;
-//       colorDropdown.dataset['rowIndex'] = i.toString();
-//       this.colors.forEach(color => {
-//         const option = document.createElement('option');
-//         option.value = color;
-//         option.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-//         colorDropdown.appendChild(option);
-//       });
-
-//       const defaultColor = this.colors[i];
-//       colorDropdown.value = defaultColor;
-//       this.usedColors.add(defaultColor);
-//       this.previousSelections.set(colorDropdown, defaultColor);
-//       colorDropdown.addEventListener('change', () => this.handleColorSelection(colorDropdown));
-//       colorDropdown.style.borderColor='#422d4d';
-//       colorDropdown.style.borderRadius='10px';
-//       colorDropdown.style.borderWidth='2px';
-//       colorDropdown.style.padding='5px';
-
-//       leftColumn.appendChild(colorDropdown);
-//       row.appendChild(leftColumn);
-
-//       const rightColumn = document.createElement('td');
-//       rightColumn.style.width = '80%';
-//       row.appendChild(rightColumn);
-
-//       table.appendChild(row);
-//       table.style.padding = '15px';
-//     }
-//   }
-
-//   unselectOtherRadioButtons(currentRadioButton: HTMLInputElement): void {
-//     console.log(currentRadioButton);
-//     const radios = document.querySelectorAll('input[type="radio"]');
-//     radios.forEach(radio => {
-//       if (radio !== currentRadioButton) {
-//         (radio as HTMLInputElement).checked = false;
-//       }
-//     });
-//   }
-
-//   handleColorSelection(changedDropdown: HTMLSelectElement): void {
-//     const selectedColor = changedDropdown.value;
-//     const allDropdowns = document.querySelectorAll('select');
-//     for (const dropdown of allDropdowns) {
-//       if (dropdown !== changedDropdown && (dropdown as HTMLSelectElement).value === selectedColor) {
-//         const previous = this.previousSelections.get(changedDropdown);
-//         changedDropdown.value = previous!;
-//         alert(`Color "${selectedColor}" is already selected. Please choose a different color.`);
-//         return;
-//       }
-//     }
-
-//     this.previousSelections.set(changedDropdown, selectedColor);
-//     this.usedColors.clear();
-//     for (const [key, value] of this.previousSelections) {
-//       this.usedColors.add(value);
-//     }
-//     // this.usedColors.set(selectedColor);
-//     // console.log(this.previousSelections);
-//     // console.log(this.usedColors);
-//   }
 
   renderPaintTable(): void {
     this.showPaintTable = true;

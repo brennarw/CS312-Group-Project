@@ -70,53 +70,48 @@
 
 <div class="table-top" *ngIf="showColorTable && !print">
     <table id="colorTable" >
-        @for (color of usedColors; track color) {
-            <tr>
+            <tr *ngFor="let row of radioRows; let i = index">
               <td style="width: 20%; vertical-align: top;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   
-                  <mat-radio-group [(ngModel)]="selectedColor">
+                  <mat-radio-group [(ngModel)]="selectedRadioIndex">
                     <mat-radio-button 
                       class="example-radio-button" 
-                      [value]="color">
+                      [value]="i"
+                      (click)="selectedColor=row.color">
                     </mat-radio-button>
                   </mat-radio-group>
              
                   <mat-form-field style="max-width: 120px; font-size: 12px;">
-                    <mat-select [value]="color" name="color">
-                      @for (colorDropDown of colorSelection; track colorDropDown) {
-                        <mat-option [value]="colorDropDown.value">
+                    <mat-select [ngModel]="row.color" (selectionChange)="onDropdownChange(i, $event.value)" [value]="row.color">
+                        <mat-option *ngFor="let colorDropDown of colorSelection" [value]="colorDropDown.value" [disabled]="isColorUsed(colorDropDown.value)">
                           {{ colorDropDown.viewValue }}
                         </mat-option>
-                      }
                     </mat-select>
                   </mat-form-field>
                 </div>
               </td>
               <td style="width: 80%; vertical-align: top;">
-                <!-- track what cells coordinate with each color here -->
+                 <p>{{ radioRows[i].coloredCells.join(', ') }}</p>
               </td>
             </tr>
-        }
     </table>
 </div>
 
 <div *ngIf="print">
     <table>
-        @for (selected of usedColors; track selected) {
-        <tr>
+        <tr *ngFor="let item of radioRows">
             <td style="width: 20%; vertical-align: top;">
-            {{ selected }}
+            {{ item.color }}
             </td>
             <td style="width: 80%; vertical-align: top;">
-            <!-- Insert whatever corresponds to the selected color -->
+              <p>{{ item.coloredCells.join(', ') }}</p>
             </td>
         </tr>
-        }
     </table>
 </div>
 
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor"></paint-table>
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex"></paint-table>
 
 <div class="no-print">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
