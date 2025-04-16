@@ -68,11 +68,51 @@
 </form>
 
 
-<div class="table-top">
+<div class="table-top" *ngIf="showColorTable && !print">
     <table id="colorTable" >
+            <tr *ngFor="let row of radioRows; let i = index">
+              <td style="width: 20%; vertical-align: top;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  
+                  <mat-radio-group [(ngModel)]="selectedRadioIndex">
+                    <mat-radio-button 
+                      class="example-radio-button" 
+                      [value]="i"
+                      (click)="selectedColor=row.color">
+                    </mat-radio-button>
+                  </mat-radio-group>
+             
+                  <mat-form-field style="max-width: 120px; font-size: 12px;">
+                    <mat-select [ngModel]="row.color" (selectionChange)="onDropdownChange(i, $event.value)" [value]="row.color">
+                        <mat-option *ngFor="let colorDropDown of colorSelection" [value]="colorDropDown.value" [disabled]="isColorUsed(colorDropDown.value)">
+                          {{ colorDropDown.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+              <td style="width: 80%; vertical-align: top;">
+                 <p>{{ radioRows[i].coloredCells.join(', ') }}</p>
+              </td>
+            </tr>
     </table>
 </div>
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
+
+<div *ngIf="print">
+    <table>
+        <tr *ngFor="let item of radioRows">
+            <td style="width: 20%; vertical-align: top;">
+            {{ item.color }}
+            </td>
+            <td style="width: 80%; vertical-align: top;">
+              <p>{{ item.coloredCells.join(', ') }}</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex"></paint-table>
+
 <div class="no-print">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
 </div>

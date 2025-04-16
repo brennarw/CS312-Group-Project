@@ -18,6 +18,12 @@ table {
     padding-top: 25px;
 }
 
+.color-table {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 10px;
+}
+
 main {
     padding-top: 25px;
     background-color: #1f1f1f;
@@ -97,6 +103,14 @@ form input {
     text-align: center;
     display: block;
     padding: 10px;
+}
+  
+.example-radio-button {
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: scale(0.8);
+    height: 20px;
+    line-height: 20px;
 }
 
 @media print {

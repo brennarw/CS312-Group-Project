@@ -11,6 +11,10 @@ import { CommonModule } from "@angular/common";
 export class PaintTableComponent {
     @Input() numRows!: number;
     @Input() numCols!: number;
+    @Input() selectedColor!: string;
+    @Input() filledCells!: { [key: string]: string };
+    @Input() radioRows!: {color:string, coloredCells: string[]}[];
+    @Input() activeRadioIndex!: number;
 
     get columns(): string[] {
         const labels: string[] = [];
@@ -34,7 +38,17 @@ export class PaintTableComponent {
     }
 
     onCellClick(row: number, col: string) {
-        console.log(`${col}${row}`);
+        const key = `${row}-${col}`;
+        this.filledCells[key] = this.selectedColor;
+        //check to see if this cell is already assigned to a color - if thats the case then remove that key from the assigned color
+        this.radioRows.forEach((radio) => {
+            if(radio.coloredCells.includes(key)){
+                radio.coloredCells.splice(radio.coloredCells.indexOf(key), 1);
+            }
+        })
+        if(this.selectedColor != ''){
+            this.radioRows[this.activeRadioIndex].coloredCells.push(key);
+        }
     }
 
       
