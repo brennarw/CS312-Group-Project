@@ -11,6 +11,7 @@ import { CommonModule } from "@angular/common";
 export class PaintTableComponent {
     @Input() numRows!: number;
     @Input() numCols!: number;
+    @Input() selectedColor!: string;
 
     get columns(): string[] {
         const labels: string[] = [];
@@ -34,6 +35,7 @@ export class PaintTableComponent {
     }
 
     onCellClick(row: number, col: string) {
+        console.log(this.selectedColor);
         console.log(`${col}${row}`);
     }
 

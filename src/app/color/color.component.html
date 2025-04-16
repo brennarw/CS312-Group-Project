@@ -68,11 +68,56 @@
 </form>
 
 
-<div class="table-top">
+<div class="table-top" *ngIf="showColorTable && !print">
     <table id="colorTable" >
+        @for (color of usedColors; track color) {
+            <tr>
+              <td style="width: 20%; vertical-align: top;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  
+                  <mat-radio-group [(ngModel)]="selectedColor">
+                    <mat-radio-button 
+                      class="example-radio-button" 
+                      [value]="color">
+                    </mat-radio-button>
+                  </mat-radio-group>
+             
+                  <mat-form-field style="max-width: 120px; font-size: 12px;">
+                    <mat-select [value]="color" name="color">
+                      @for (colorDropDown of colorSelection; track colorDropDown) {
+                        <mat-option [value]="colorDropDown.value">
+                          {{ colorDropDown.viewValue }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+              <td style="width: 80%; vertical-align: top;">
+                <!-- track what cells coordinate with each color here -->
+              </td>
+            </tr>
+        }
     </table>
 </div>
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols"></paint-table>
+
+<div *ngIf="print">
+    <table>
+        @for (selected of usedColors; track selected) {
+        <tr>
+            <td style="width: 20%; vertical-align: top;">
+            {{ selected }}
+            </td>
+            <td style="width: 80%; vertical-align: top;">
+            <!-- Insert whatever corresponds to the selected color -->
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor"></paint-table>
+
 <div class="no-print">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
 </div>
