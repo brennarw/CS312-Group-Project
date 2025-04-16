@@ -25,8 +25,6 @@ export class ColorComponent {
   numRows!: number;
   numCols!: number; 
   numColors!: number;
-  rowsArray!: number[];
-  columnLabels!: string[];
   showColorTable: boolean = false;
   allColorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
   colorSelection: Color[] = [
@@ -41,14 +39,12 @@ export class ColorComponent {
     {value: 'black', viewValue: 'Black'},
     {value: 'teal', viewValue: 'Teal'},
   ];
-  // usedColors = new Set<string>();
   filledCells: { [key: string]: string } = {};
   radioRows: {color:string, coloredCells: string[]}[] = [];
   selectedColor: string = '';
   selectedRadioIndex: number = -1;
   print: boolean = false;
 
-  colors: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
   previousSelections = new Map<HTMLSelectElement, string>();
 
   showPaintTable = false;
