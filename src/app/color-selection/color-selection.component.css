@@ -1,13 +1,76 @@
+* {
+    margin: auto;
+}
+
 main {
     padding-top: 25px;
     background-color: #1f1f1f;
     height: 100vh;
     position: relative;
-    color: white;
 }
 
 h1 {
     color: #d2adf4; /*Color contrast against #1f1f1f text: https://webaim.org/resources/contrastchecker/?fcolor=D2ADF4&bcolor=1F1F1F*/
     text-align: center;
     padding-bottom: 20px;
+}
+
+form {
+    width: 80%;
+    background-color: #a9c2e8; /*Color contrast against #1f1f1f text: https://webaim.org/resources/contrastchecker/?fcolor=A9C2E8&bcolor=1F1F1F*/
+    color: #1f1f1f;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+form label {
+    padding-left: 10px;
+}
+
+form input {
+    padding-left: 100px;
+    width: 65px;
+    border-radius: 15px;
+    border-color: #422d4d;
+    padding: 10px;
+}
+
+.button {
+    padding: 10px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: #422d4d; /*Color contrast against lavender text: https://webaim.org/resources/contrastchecker/?fcolor=422D4D&bcolor=E5E5FA*/
+    color: lavender;
+    font-size: 15px;
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.success {
+    color: green;
+    font-size: 12px;
+}
+
+.error {
+    color: white; /*Color contrast against #AF1818 text: https://webaim.org/resources/contrastchecker/?fcolor=AF1818&bcolor=FFFFFF*/
+    background-color: #AF1818;
+    border-radius: 15px;
+    width: 600px;
+    font-size: 12px;
+    text-align: center;
+    display: block;
+    padding: 10px;
+}
+
+.title {
+    font-size: 24px;
+    padding-bottom: 25px;
+    padding-right: 950px;
+    color: #422d4d;
 }
