@@ -7,10 +7,11 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface Color {
-  value: string;
-  viewValue: string;
+  name: string;
 }
 
 @Component({
@@ -21,24 +22,16 @@ interface Color {
   styleUrl: './color.component.css',
 })
 
+@Injectable({
+  providedIn: 'root'
+})
+
 export class ColorComponent {
   numRows!: number;
   numCols!: number; 
   numColors!: number;
   showColorTable: boolean = false;
-  allColorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-  // colorSelection: Color[] = [
-  //   {value: 'red', viewValue: 'Red'},
-  //   {value: 'orange', viewValue: 'Orange'},
-  //   {value: 'yellow', viewValue: 'Yellow'},
-  //   {value: 'green', viewValue: 'Green'},
-  //   {value: 'blue', viewValue: 'Blue'},
-  //   {value: 'purple', viewValue: 'Purple'},
-  //   {value: 'grey', viewValue: 'Grey'},
-  //   {value: 'brown', viewValue: 'Brown'},
-  //   {value: 'black', viewValue: 'Black'},
-  //   {value: 'teal', viewValue: 'Teal'},
-  // ];
+  allColorOptions!: string[];
   filledCells: { [key: string]: string } = {};
   radioRows: {color:string, coloredCells: string[]}[] = [];
   selectedColor: string = '';
@@ -49,10 +42,29 @@ export class ColorComponent {
 
   showPaintTable = false;
 
+  constructor(private http: HttpClient) {
+    this.allColorOptions = this.getColors();
+    console.log(this.allColorOptions);
+  }
+
   formSubmit() {
     this.adjustColorOptions();
     this.showColorTable = true;
     this.renderPaintTable();
+  }
+
+  getColors():string[] {
+    let colors: Color[] = [];
+    this.http.get<any>('https://cs.colostate.edu/~etaketa/getColors.php').subscribe({
+      next: data => {
+        console.log('Get was successful', data);
+        colors = data;
+      },
+      error: err => {
+        console.log(`There was an error`, err);
+      }
+    })
+    return colors.map((color)=>color.name);
   }
 
   printPage(): void {
