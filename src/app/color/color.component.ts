@@ -27,18 +27,18 @@ export class ColorComponent {
   numColors!: number;
   showColorTable: boolean = false;
   allColorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-  colorSelection: Color[] = [
-    {value: 'red', viewValue: 'Red'},
-    {value: 'orange', viewValue: 'Orange'},
-    {value: 'yellow', viewValue: 'Yellow'},
-    {value: 'green', viewValue: 'Green'},
-    {value: 'blue', viewValue: 'Blue'},
-    {value: 'purple', viewValue: 'Purple'},
-    {value: 'grey', viewValue: 'Grey'},
-    {value: 'brown', viewValue: 'Brown'},
-    {value: 'black', viewValue: 'Black'},
-    {value: 'teal', viewValue: 'Teal'},
-  ];
+  // colorSelection: Color[] = [
+  //   {value: 'red', viewValue: 'Red'},
+  //   {value: 'orange', viewValue: 'Orange'},
+  //   {value: 'yellow', viewValue: 'Yellow'},
+  //   {value: 'green', viewValue: 'Green'},
+  //   {value: 'blue', viewValue: 'Blue'},
+  //   {value: 'purple', viewValue: 'Purple'},
+  //   {value: 'grey', viewValue: 'Grey'},
+  //   {value: 'brown', viewValue: 'Brown'},
+  //   {value: 'black', viewValue: 'Black'},
+  //   {value: 'teal', viewValue: 'Teal'},
+  // ];
   filledCells: { [key: string]: string } = {};
   radioRows: {color:string, coloredCells: string[]}[] = [];
   selectedColor: string = '';

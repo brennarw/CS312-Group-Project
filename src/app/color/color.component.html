@@ -82,8 +82,8 @@
              
                   <mat-form-field style="max-width: 120px; font-size: 12px;">
                     <mat-select [ngModel]="row.color" (selectionChange)="onDropdownChange(i, $event.value)" [value]="row.color">
-                        <mat-option *ngFor="let colorDropDown of colorSelection" [value]="colorDropDown.value" [disabled]="isColorUsed(colorDropDown.value)">
-                          {{ colorDropDown.viewValue }}
+                        <mat-option *ngFor="let colorDropDown of allColorOptions" [value]="colorDropDown" [disabled]="isColorUsed(colorDropDown)">
+                          {{ colorDropDown }}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
