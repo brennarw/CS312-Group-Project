@@ -108,10 +108,14 @@
     </table>
 </div>
 
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex"></paint-table>
+<div class="paint-table">
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex" class="ptable"></paint-table>
+</div>
 
 <div class="no-print">
+  <div class="b">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
+  </div>
 </div>
 
 </main>
