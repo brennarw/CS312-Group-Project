@@ -1,5 +1,7 @@
 * {
     margin: auto;
+    height: 100%;
+    padding: 0;
 }
 
 h1 {
@@ -16,6 +18,7 @@ table {
 
 .table-top {
     padding-top: 25px;
+    background-color: #1f1f1f;
 }
 
 .color-table {
