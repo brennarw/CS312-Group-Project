@@ -13,7 +13,7 @@
                 <th>{{row}}</th>
                 <td *ngFor="let col of columns" 
                     (click)="onCellClick(row, col)"
-                    [style.backgroundColor]="filledCells[`${row}-${col}`] || ''">
+                    [style.backgroundColor]="filledCells[`${col}${row}`] || ''">
                 </td>
             </tr>
         </tbody>

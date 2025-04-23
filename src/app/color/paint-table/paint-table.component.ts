@@ -38,8 +38,9 @@ export class PaintTableComponent {
     }
 
     onCellClick(row: number, col: string) {
-        const key = `${row}-${col}`;
+        const key = `${col}${row}`;
         this.filledCells[key] = this.selectedColor;
+        console.log(key);
         //check to see if this cell is already assigned to a color - if thats the case then remove that key from the assigned color
         this.radioRows.forEach((radio) => {
             if(radio.coloredCells.includes(key)){
