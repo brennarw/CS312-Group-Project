@@ -89,7 +89,7 @@
                   </mat-form-field>
               </td>
               <td style="width: 80%; vertical-align: top;">
-                 <p>{{ radioRows[i].coloredCells.join(', ') }}</p>
+                 <p>{{ radioRows[i].coloredCells.sort().join(', ') }}</p>
               </td>
             </tr>
     </table>
@@ -102,7 +102,7 @@
             {{ item.color }}
             </td>
             <td style="width: 80%; vertical-align: top;">
-              <p>{{ item.coloredCells.join(', ') }}</p>
+              <p>{{ item.coloredCells.sort().join(', ') }}</p>
             </td>
         </tr>
     </table>
