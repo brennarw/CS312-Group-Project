@@ -42,4 +42,52 @@
         Entry could not be added to the table - ensure values entered are not already present in the database
     </div>
 </form>
+
+<form #Edit (ngSubmit)="EditColor()" #form="ngForm">
+    <div class="title"><b>Edit a Color!</b></div>
+    <div class="form">
+        <label for="editColor">Update a Color: </label>
+        <input
+            type="text"
+            id="editColor"
+            name="editColor"
+            class="form-control"
+            required
+            [(ngModel)]="editColor"
+            #editColorField="ngModel">
+
+        <label for="newColor">New Color Name: </label>
+        <input
+            type="text"
+            id="newColor"
+            name="newColor"
+            class="form-control"
+            required
+            [(ngModel)]="newColor">
+        
+        <label for="newHex">New Hex Value: </label>
+        <input
+            type="text"
+            id="newHex"
+            name="newHex"
+            class="form-control"
+            required
+            [(ngModel)]="newHex">
+
+        <input type="submit" class="button" value="Submit Edit">    
+    </div>
+
+    <div *ngIf="editColorField.invalid && (editColorField.touched)">
+        <div *ngIf="editColorField.hasError('required')" class="error">
+            *Current color name is required.
+        </div>
+    </div>  
+    
+    <div class="success" *ngIf="success">
+        Color was successfully updated!
+      </div>
+      <div class="error" *ngIf="error">
+        Update failed - Make sure the original color exists and the new name and hex do not conflict.
+      </div>
+</form>
 </main>

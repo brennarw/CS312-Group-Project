@@ -18,9 +18,16 @@ import { HttpClient } from '@angular/common/http';
 export class ColorSelectionComponent{
   color!: string;
   hex!: string;
+
+  editColor!: string;  
+  newColor!: string;   
+  newHex!: string;
+
   error: boolean = false;
   success: boolean = false;
+
   add_color_url = 'https://cs.colostate.edu/~etaketa/addColor.php';
+  edit_color_url = 'https://cs.colostate.edu/~etaketa/editColor.php';
 
   constructor(private http: HttpClient) {}
 
@@ -41,7 +48,27 @@ export class ColorSelectionComponent{
     this.success = false;
     this.error = false;
   }
+  
+  EditColor() {
+    console.log(`Editing color: ${this.editColor} → name: ${this.newColor}, hex: ${this.newHex}`);
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    let editPayload = new EditColor(this.editColor, this.newColor, this.newHex);
+
+    this.http.post<any>(this.edit_color_url, JSON.stringify(editPayload), options).subscribe({
+      next: data => {
+        this.success = true;
+        console.log('Color successfully updated');
+      },
+      error: err => {
+        this.error= true;
+        console.log('Edit failed', err);
+      }
+    });
+    this.success = false;
+    this.error = false;
+  }
 }
+
 
 export class AddColor {
   color: string;
@@ -49,5 +76,16 @@ export class AddColor {
   constructor(color: string, hex: string) {
     this.color = color;
     this.hex = hex;
+  }
+}
+
+export class EditColor {
+  currentColor: string;
+  newColor: string | null;
+  newHex: string | null;
+  constructor(currentColor: string, newColor?: string, newHex?: string) {
+    this.currentColor = currentColor;
+    this.newColor = newColor || null;
+    this.newHex = newHex || null;
   }
 }
