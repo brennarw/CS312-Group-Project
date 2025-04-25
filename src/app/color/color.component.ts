@@ -9,6 +9,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 interface Color {
   name: string;
@@ -32,6 +33,7 @@ export class ColorComponent {
   numColors!: number;
   showColorTable: boolean = false;
   allColorOptions!: string[];
+  allColorOptionsLength!: number;
   filledCells: { [key: string]: string } = {};
   radioRows: {color:string, coloredCells: string[]}[] = [];
   selectedColor: string = '';
@@ -42,9 +44,12 @@ export class ColorComponent {
 
   showPaintTable = false;
 
-  constructor(private http: HttpClient) {
-    this.allColorOptions = this.getColors();
-    console.log(this.allColorOptions);
+  constructor(private http: HttpClient) {}
+
+  async ngOnInit() {
+    const allColorOptionsNonResolved = this.getColors();
+    this.allColorOptions = await allColorOptionsNonResolved;
+    this.allColorOptionsLength = this.allColorOptions.length;
   }
 
   formSubmit() {
@@ -53,18 +58,14 @@ export class ColorComponent {
     this.renderPaintTable();
   }
 
-  getColors():string[] {
-    let colors: Color[] = [];
-    this.http.get<any>('https://cs.colostate.edu/~etaketa/getColors.php').subscribe({
-      next: data => {
-        console.log('Get was successful', data);
-        colors = data;
-      },
-      error: err => {
-        console.log(`There was an error`, err);
-      }
-    })
-    return colors.map((color)=>color.name);
+  async getColors(): Promise<string[]> {
+    try {
+      const data = await firstValueFrom(this.http.get<Color[]>('https://cs.colostate.edu/~etaketa/getColors.php'));
+      return data.map(color => color.name);
+    } catch (error) {
+      console.error("there was an error fetching color options", error);
+      return[];
+    }
   }
 
   printPage(): void {

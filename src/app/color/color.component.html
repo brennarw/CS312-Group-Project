@@ -59,7 +59,7 @@
 
     <div *ngIf="colors.invalid && (colors.touched)">
         <div *ngIf="colors.hasError('max') || colors.hasError('min')" class="error">
-            *Colors must be at least 1 or at most {{allColorOptions.length}}.
+            *Colors must be at least 1 or at most {{allColorOptionsLength}}.
       </div>
       <div *ngIf="colors.hasError('required')" class="error">
           *Colors field is required.
