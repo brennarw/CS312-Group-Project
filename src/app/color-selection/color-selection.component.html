@@ -1,45 +1,92 @@
 <main>
-<h1>Color Selection</h1>
-<form #Add (ngSubmit)="AddColor()" #form="ngForm">
-    <div class="title"><b>Add a Color!</b></div>
-    <div class="form">
-        <label for="color">Add a Color: </label> <input 
-            type="text" 
-            id="color" 
-            name="color" 
-            class="form-control"
-            required
-            [(ngModel)]="color"
-            #colors="ngModel">
-
-        <label for="hex">Add the Hex Value: </label> <input 
-            type="text" 
-            id="hex" 
-            name="hex" 
-            class="form-control"
-            required
-            [(ngModel)]="hex"
-            #hex_val="ngModel">
+    <h1>Color Selection</h1>
+    <form #Add (ngSubmit)="AddColor()" #form="ngForm">
+        <div class="title"><b>Add a Color!</b></div>
+        <div class="form">
+            <label for="color">Add a Color: </label> <input 
+                type="text" 
+                id="color" 
+                name="color" 
+                class="form-control"
+                required
+                [(ngModel)]="color"
+                #colors="ngModel">
+    
+            <label for="hex">Add the Hex Value: </label> <input 
+                type="text" 
+                id="hex" 
+                name="hex" 
+                class="form-control"
+                required
+                [(ngModel)]="hex"
+                #hex_val="ngModel">
+            
+            <input type="submit" class="button">
+        </div>
+    
+        <div *ngIf="colors.invalid && (colors.touched)">
+            <div *ngIf="colors.hasError('required')" class="error">
+                *Color field is required.
+            </div>
+        </div>
+        <div *ngIf="hex_val.invalid && (hex_val.touched)">
+            <div *ngIf="hex_val.hasError('required')" class="error">
+                *Hex field is required.
+            </div>
+        </div>
+    
+        <div class="success" *ngIf="success">
+            Color was successfully inserted!
+        </div>
+        <div class="error" *ngIf="error">
+            Entry could not be added to the table - ensure values entered are not already present in the database
+        </div>
+    </form>
+    
+    <form #Edit="ngForm" (ngSubmit)="EditColor()">
+        <div class="title"><b>Edit a Color!</b></div>
+        <div class="form">
+            <label for="editColor">Current Color Name: </label>
+            <input
+                type="text"
+                id="editColor"
+                name="editColor"
+                class="form-control"
+                required
+                [(ngModel)]="editColor"
+                #editColorField="ngModel">
+    
+            <label for="newColor">New Color Name (optional): </label>
+            <input
+                type="text"
+                id="newColor"
+                name="newColor"
+                class="form-control"
+                [(ngModel)]="newColor">
+            
+            <label for="newHex">New Hex Value (optional): </label>
+            <input
+                  type="text"
+                  id="newHex"
+                  name="newHex"
+                  class="form-control"
+                  [(ngModel)]="newHex">
+                
+    
+            <input type="submit" class="button">    
+        </div>
+    
+        <div *ngIf="editColorField.invalid && (editColorField.touched)">
+            <div *ngIf="editColorField.hasError('required')" class="error">
+                *Current color name is required.
+            </div>
+        </div>  
         
-        <input type="submit" class="button">
-    </div>
-
-    <div *ngIf="colors.invalid && (colors.touched)">
-        <div *ngIf="colors.hasError('required')" class="error">
-            *Color field is required.
+        <div class="success" *ngIf="editSuccess">
+            Color was successfully updated!
         </div>
-    </div>
-    <div *ngIf="hex_val.invalid && (hex_val.touched)">
-        <div *ngIf="hex_val.hasError('required')" class="error">
-            *Hex field is required.
+        <div class="error" *ngIf="editError">
+            Update failed - Make sure the original color exists and the new name and hex do not conflict.
         </div>
-    </div>
-
-    <div class="success" *ngIf="success">
-        Color was successfully inserted!
-    </div>
-    <div class="error" *ngIf="error">
-        Entry could not be added to the table - ensure values entered are not already present in the database
-    </div>
-</form>
-</main>
+    </form>
+    </main>
