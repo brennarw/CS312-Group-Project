@@ -16,19 +16,26 @@ table {
 
 .table-top {
     padding-top: 25px;
+    background-color: #1f1f1f;
 }
 
 .color-table {
     display: flex; 
     align-items: center; 
-    margin-bottom: 10px;
+    background-color: #1f1f1f;
+}
+
+.paint-table {
+    padding-bottom: 75px;
+    padding-top: 25px;
+    background-color: #1f1f1f;
 }
 
 main {
     padding-top: 25px;
-    background-color: #1f1f1f;
     height: 100vh;
     position: relative;
+    background-color: #1f1f1f;
 }
 
 th, td {
@@ -80,10 +87,16 @@ form input {
     cursor: pointer;
 }
 
+.b {
+    padding-bottom: 25px;
+    background-color: #1f1f1f;
+}
+
 .print-button {
-    position:fixed;
-    bottom: 20px;    
-    right: 20px;
+    position:relative;
+    float: right;
+    bottom: 50px;    
+    right: 10%;
     padding: 10px;
     border-radius: 15px;
     border-style: none;

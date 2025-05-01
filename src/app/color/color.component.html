@@ -29,7 +29,7 @@
     id="colors" 
     name="colors" 
     class="form-control" 
-    [max]="10"
+    [max]="allColorOptions.length"
     [min]="1"
     required 
     #colors="ngModel"
@@ -59,7 +59,7 @@
 
     <div *ngIf="colors.invalid && (colors.touched)">
         <div *ngIf="colors.hasError('max') || colors.hasError('min')" class="error">
-            *Colors must be at least 1 or at most 10.
+            *Colors must be at least 1 or at most {{allColorOptionsLength}}.
       </div>
       <div *ngIf="colors.hasError('required')" class="error">
           *Colors field is required.
@@ -82,14 +82,14 @@
              
                   <mat-form-field style="max-width: 120px; font-size: 12px;">
                     <mat-select [ngModel]="row.color" (selectionChange)="onDropdownChange(i, $event.value)" [value]="row.color">
-                        <mat-option *ngFor="let colorDropDown of colorSelection" [value]="colorDropDown.value" [disabled]="isColorUsed(colorDropDown.value)">
-                          {{ colorDropDown.viewValue }}
+                        <mat-option *ngFor="let colorDropDown of allColorOptions" [value]="colorDropDown" [disabled]="isColorUsed(colorDropDown)">
+                          {{ colorDropDown }}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
               </td>
               <td style="width: 80%; vertical-align: top;">
-                 <p>{{ radioRows[i].coloredCells.join(', ') }}</p>
+                 <p>{{ radioRows[i].coloredCells.sort().join(', ') }}</p>
               </td>
             </tr>
     </table>
@@ -102,16 +102,20 @@
             {{ item.color }}
             </td>
             <td style="width: 80%; vertical-align: top;">
-              <p>{{ item.coloredCells.join(', ') }}</p>
+              <p>{{ item.coloredCells.sort().join(', ') }}</p>
             </td>
         </tr>
     </table>
 </div>
 
-<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex"></paint-table>
+<div class="paint-table">
+<paint-table *ngIf="showPaintTable" [numRows]="numRows" [numCols]="numCols" [selectedColor]="selectedColor" [filledCells]="filledCells" [radioRows]="radioRows" [activeRadioIndex]="selectedRadioIndex" class="ptable"></paint-table>
+</div>
 
 <div class="no-print">
+  <div class="b">
     <button class='print-button' (click)="printPage()">Print Coloring Page</button>
+  </div>
 </div>
 
 </main>

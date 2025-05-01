@@ -7,10 +7,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 interface Color {
-  value: string;
-  viewValue: string;
+  name: string;
 }
 
 @Component({
@@ -21,24 +23,17 @@ interface Color {
   styleUrl: './color.component.css',
 })
 
+@Injectable({
+  providedIn: 'root'
+})
+
 export class ColorComponent {
   numRows!: number;
   numCols!: number; 
   numColors!: number;
   showColorTable: boolean = false;
-  allColorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
-  colorSelection: Color[] = [
-    {value: 'red', viewValue: 'Red'},
-    {value: 'orange', viewValue: 'Orange'},
-    {value: 'yellow', viewValue: 'Yellow'},
-    {value: 'green', viewValue: 'Green'},
-    {value: 'blue', viewValue: 'Blue'},
-    {value: 'purple', viewValue: 'Purple'},
-    {value: 'grey', viewValue: 'Grey'},
-    {value: 'brown', viewValue: 'Brown'},
-    {value: 'black', viewValue: 'Black'},
-    {value: 'teal', viewValue: 'Teal'},
-  ];
+  allColorOptions!: string[];
+  allColorOptionsLength!: number;
   filledCells: { [key: string]: string } = {};
   radioRows: {color:string, coloredCells: string[]}[] = [];
   selectedColor: string = '';
@@ -49,10 +44,28 @@ export class ColorComponent {
 
   showPaintTable = false;
 
+  constructor(private http: HttpClient) {}
+
+  async ngOnInit() {
+    const allColorOptionsNonResolved = this.getColors();
+    this.allColorOptions = await allColorOptionsNonResolved;
+    this.allColorOptionsLength = this.allColorOptions.length;
+  }
+
   formSubmit() {
     this.adjustColorOptions();
     this.showColorTable = true;
     this.renderPaintTable();
+  }
+
+  async getColors(): Promise<string[]> {
+    try {
+      const data = await firstValueFrom(this.http.get<Color[]>('https://cs.colostate.edu/~etaketa/getColors.php'));
+      return data.map(color => color.name);
+    } catch (error) {
+      console.error("there was an error fetching color options", error);
+      return[];
+    }
   }
 
   printPage(): void {
