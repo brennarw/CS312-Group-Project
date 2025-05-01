@@ -21,7 +21,7 @@
                 [(ngModel)]="hex"
                 #hex_val="ngModel">
             
-            <input type="submit" class="button">
+            <input type="submit" [disabled]="form.invalid" class="button">
         </div>
     
         <div *ngIf="colors.invalid && (colors.touched)">
@@ -42,7 +42,7 @@
             Entry could not be added to the table - ensure values entered are not already present in the database
         </div>
     </form>
-    
+    <div class="edit-form">
     <form #Edit="ngForm" (ngSubmit)="EditColor()">
         <div class="title"><b>Edit a Color!</b></div>
         <div class="form">
@@ -73,7 +73,7 @@
                   [(ngModel)]="newHex">
                 
     
-            <input type="submit" class="button">    
+            <input type="submit" [disabled]="Edit.invalid" class="button">    
         </div>
     
         <div *ngIf="editColorField.invalid && (editColorField.touched)">
@@ -89,4 +89,5 @@
             Update failed - Make sure the original color exists and the new name and hex do not conflict.
         </div>
     </form>
+    </div>
     </main>

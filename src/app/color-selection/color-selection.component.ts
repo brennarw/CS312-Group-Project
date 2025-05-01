@@ -28,7 +28,7 @@ export class ColorSelectionComponent{
   editError: boolean = false;
 
   add_color_url = 'https://cs.colostate.edu/~etaketa/addColor.php';
-  edit_color_url = 'https://cs.colostate.edu/~hannahss/editColor.php';
+  edit_color_url = 'https://cs.colostate.edu/~etaketa/editColor.php';
 
 
   constructor(private http: HttpClient) {}
