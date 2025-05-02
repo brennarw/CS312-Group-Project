@@ -10,6 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 interface Color {
   name: string;
@@ -18,7 +19,7 @@ interface Color {
 @Component({
   selector: 'app-color',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, PaintTableComponent, MatRadioModule, MatFormFieldModule, MatInputModule, MatSelectModule], 
+  imports: [CommonModule, RouterModule, FormsModule, PaintTableComponent, MatRadioModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule], 
   templateUrl: './color.component.html',
   styleUrl: './color.component.css',
 })

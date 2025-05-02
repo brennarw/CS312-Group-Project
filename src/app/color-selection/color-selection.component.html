@@ -5,6 +5,7 @@
         <div class="form">
             <label for="color">Add a Color: </label> <input 
                 type="text" 
+                (keydown)="blockSpaces($event)"
                 id="color" 
                 name="color" 
                 class="form-control"

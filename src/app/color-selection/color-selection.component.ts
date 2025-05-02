@@ -33,6 +33,12 @@ export class ColorSelectionComponent{
 
   constructor(private http: HttpClient) {}
 
+  blockSpaces(event: KeyboardEvent) {
+    if (event.key === ' ') {
+      event.preventDefault();
+    }
+  }
+
   AddColor() {
     console.log(`request made with color: ${this.color} and ${this.hex}`);
     const options = {headers:{'Content-Type':'application/json'}};
