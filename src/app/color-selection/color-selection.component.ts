@@ -106,7 +106,8 @@ export class ColorSelectionComponent{
         console.error(`There was an error deleting ${this.deleteColor}: `, err.error.error);
       }
     })
-    
+    this.deleteError = false;
+    this.deleteSuccess = false;
   }
 }
 
