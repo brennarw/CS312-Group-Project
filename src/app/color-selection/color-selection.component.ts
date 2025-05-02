@@ -18,13 +18,15 @@ import { HttpClient } from '@angular/common/http';
 export class ColorSelectionComponent{
   color!: string;
   hex!: string;
+  error: boolean = false;
+  success: boolean = false;
 
   editColor!: string;  
   newColor!: string;   
   newHex!: string;
+  editSuccess: boolean = false;
+  editError: boolean = false;
 
-  error: boolean = false;
-  success: boolean = false;
 
   add_color_url = 'https://cs.colostate.edu/~etaketa/addColor.php';
   edit_color_url = 'https://cs.colostate.edu/~etaketa/editColor.php';
@@ -50,23 +52,29 @@ export class ColorSelectionComponent{
   }
   
   EditColor() {
+    if (!this.newColor && !this.newHex) {
+      this.editError = true;
+      console.log('Nothing to update!');
+      return;
+    }
+    this.editSuccess = false;
+    this.editError = false;
+  
     console.log(`Editing color: ${this.editColor} → name: ${this.newColor}, hex: ${this.newHex}`);
     const options = { headers: { 'Content-Type': 'application/json' } };
-    let editPayload = new EditColor(this.editColor, this.newColor, this.newHex);
-
-    this.http.post<any>(this.edit_color_url, JSON.stringify(editPayload), options).subscribe({
+    let out = new EditColor(this.editColor, this.newColor, this.newHex);
+    this.http.put<any>(this.edit_color_url, JSON.stringify(out), options).subscribe({
       next: data => {
-        this.success = true;
+        this.editSuccess = true;
         console.log('Color successfully updated');
       },
       error: err => {
-        this.error= true;
+        this.editError = true;
         console.log('Edit failed', err);
       }
     });
-    this.success = false;
-    this.error = false;
-  }
+  }  
+  
 }
 
 
