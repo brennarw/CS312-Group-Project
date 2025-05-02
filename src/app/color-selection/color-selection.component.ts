@@ -27,9 +27,12 @@ export class ColorSelectionComponent{
   editSuccess: boolean = false;
   editError: boolean = false;
 
+  deleteColor!: string;
+
 
   add_color_url = 'https://cs.colostate.edu/~etaketa/addColor.php';
   edit_color_url = 'https://cs.colostate.edu/~etaketa/editColor.php';
+  delete_color_url = 'http://localhost:8000/deleteColor.php';
 
   constructor(private http: HttpClient) {}
 
@@ -74,7 +77,26 @@ export class ColorSelectionComponent{
       }
     });
   }  
-  
+
+  DeleteColor() {
+    console.log(`request to delete color: ${this.deleteColor}`);
+    const options = {
+      headers:{'Content-Type':'application/json'},
+      body: {color: this.deleteColor}
+    };
+    this.http.post<any>(this.delete_color_url, options).subscribe({
+      next: data => {
+        this.success = true;
+        console.log(`${this.deleteColor} was successfully deleted`);
+      },
+      error: err => {
+        this.error = true;
+        console.log(`There was an error deleting ${this.deleteColor}: `, err);
+      }
+    })
+    this.success = false;
+    this.error = false;
+  }
 }
 
 

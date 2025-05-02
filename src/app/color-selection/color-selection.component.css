@@ -81,6 +81,7 @@ form input {
 
 .delete-form {
     margin-top: 25px;
+    text-wrap: nowrap;
 }
 
 button[disabled], input[disabled] {
