@@ -54,11 +54,16 @@ export class ColorSelectionComponent{
   async getColors(): Promise<number> {
     try {
       const data = await firstValueFrom(this.http.get<Color[]>('https://cs.colostate.edu/~etaketa/getColors.php'));
-      // console.log(data);
       return data.length;
     } catch (error) {
       console.error("There was an error fetching the number of colors", error);
       return 0;
+    }
+  }
+
+  blockSpaces(event: KeyboardEvent) {
+    if (event.key === ' ') {
+      event.preventDefault();
     }
   }
 
