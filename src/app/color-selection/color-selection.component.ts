@@ -4,6 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+
+
+interface Color {
+  name: string;
+}
+
 @Component({
   selector: 'app-color-selection',
   imports: [FormsModule, CommonModule],
@@ -16,6 +23,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ColorSelectionComponent{
+  numCurrentColors!: number;
   color!: string;
   hex!: string;
   error: boolean = false;
@@ -37,6 +45,22 @@ export class ColorSelectionComponent{
   delete_color_url = 'https://cs.colostate.edu/~c837347176/deleteColor.php';
 
   constructor(private http: HttpClient) {}
+
+  async ngOnInit() {
+    const numCurrentColors = this.getColors();
+    this.numCurrentColors = await numCurrentColors;
+  }
+
+  async getColors(): Promise<number> {
+    try {
+      const data = await firstValueFrom(this.http.get<Color[]>('https://cs.colostate.edu/~etaketa/getColors.php'));
+      // console.log(data);
+      return data.length;
+    } catch (error) {
+      console.error("There was an error fetching the number of colors", error);
+      return 0;
+    }
+  }
 
   AddColor() {
     console.log(`request made with color: ${this.color} and ${this.hex}`);

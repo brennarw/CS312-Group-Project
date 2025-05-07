@@ -116,6 +116,9 @@
                     <button type="submit" id="deleteButton" [disabled]="deleteColorField.invalid" class="button">Delete</button>
                 </div>
             </form>
+            <div *ngIf="numCurrentColors === 2" class="non-intrusive">
+                Heads up! You only have {{numCurrentColors}} colors left.
+            </div>
             <div class="success" *ngIf="deleteSuccess">
                 Color was successfully deleted!
             </div>
