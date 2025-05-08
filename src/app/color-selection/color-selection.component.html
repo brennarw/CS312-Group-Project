@@ -59,6 +59,7 @@
                         id="editColor"
                         name="editColor"
                         class="form-control"
+                        (keydown)="blockSpaces($event)"
                         required
                         [(ngModel)]="editColor"
                         #editColorField="ngModel">
@@ -69,6 +70,7 @@
                         id="newColor"
                         name="newColor"
                         class="form-control"
+                        (keydown)="blockSpaces($event)"
                         [(ngModel)]="newColor">
                     
                     <label for="newHex">New Hex Value (optional): </label>
@@ -109,6 +111,7 @@
                             id="deleteColor" 
                             name="deleteColor" 
                             class="form-control"
+                            (keydown)="blockSpaces($event)"
                             required
                             [(ngModel)]="deleteColor"
                             #deleteColorField="ngModel"

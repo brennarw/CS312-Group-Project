@@ -50,10 +50,11 @@ export class ColorComponent {
   async ngOnInit() {
     const allColorOptionsNonResolved = this.getColors();
     this.allColorOptions = await allColorOptionsNonResolved;
-    this.allColorOptionsLength = this.allColorOptions.length;
+    // this.allColorOptionsLength = this.allColorOptions.length >= 15 ? 15 : this.allColorOptions.length;
   }
 
   formSubmit() {
+    this.allColorOptionsLength = this.numColors >= 15 ? 15 : this.numColors;
     this.adjustColorOptions();
     this.showColorTable = true;
     this.renderPaintTable();
@@ -81,7 +82,7 @@ export class ColorComponent {
     this.radioRows = [];
     this.selectedColor = '';
     this.filledCells = {};
-    this.radioRows = this.allColorOptions.slice(0, this.numColors).map(color => ({ color: color, coloredCells: [] }));
+    this.radioRows = this.allColorOptions.slice(0, this.allColorOptionsLength).map(color => ({ color: color, coloredCells: [] }));
   }
 
   isColorUsed(color: string): boolean {
