@@ -3,6 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+
+
+interface Color {
+  name: string;
+}
 
 @Component({
   selector: 'app-color-selection',
@@ -16,6 +23,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ColorSelectionComponent{
+  numCurrentColors!: number;
   color!: string;
   hex!: string;
   error: boolean = false;
@@ -27,11 +35,31 @@ export class ColorSelectionComponent{
   editSuccess: boolean = false;
   editError: boolean = false;
 
+  deleteColor!: string;
+  deleteSuccess: boolean = false;
+  deleteError: boolean = false;
+  deleteErrorMsg: string = '';
 
   add_color_url = 'https://cs.colostate.edu/~etaketa/addColor.php';
   edit_color_url = 'https://cs.colostate.edu/~etaketa/editColor.php';
+  delete_color_url = 'https://cs.colostate.edu/~c837347176/deleteColor.php';
 
   constructor(private http: HttpClient) {}
+
+  async ngOnInit() {
+    const numCurrentColors = this.getColors();
+    this.numCurrentColors = await numCurrentColors;
+  }
+
+  async getColors(): Promise<number> {
+    try {
+      const data = await firstValueFrom(this.http.get<Color[]>('https://cs.colostate.edu/~etaketa/getColors.php'));
+      return data.length;
+    } catch (error) {
+      console.error("There was an error fetching the number of colors", error);
+      return 0;
+    }
+  }
 
   blockSpaces(event: KeyboardEvent) {
     if (event.key === ' ') {
@@ -80,7 +108,36 @@ export class ColorSelectionComponent{
       }
     });
   }  
-  
+
+  DeleteColor(deleteForm: NgForm) {
+    const confirmed = window.confirm(`Are you sure you want to delete the color: "${this.deleteColor}"?`);
+    if (!confirmed) return;
+
+    const headers = {'Content-Type':'application/json'};
+    const body = {color: this.deleteColor};
+    
+    this.http.post<any>(this.delete_color_url, body, {headers}).subscribe({
+      next: data => {
+        if (data && data.error){
+          this.deleteError = true;
+          this.deleteErrorMsg = data.error.error;
+          console.error(`There was an error deleting ${this.deleteColor}: `, data.error.error);
+        }
+        else {
+          this.deleteSuccess = true;
+          console.log(`${this.deleteColor} was successfully deleted`);
+          deleteForm.resetForm()
+        }
+      },
+      error: err => {
+        this.deleteError = true;
+        this.deleteErrorMsg = err.error.error;
+        console.error(`There was an error deleting ${this.deleteColor}: `, err.error.error);
+      }
+    })
+    this.deleteError = false;
+    this.deleteSuccess = false;
+  }
 }
 
 
